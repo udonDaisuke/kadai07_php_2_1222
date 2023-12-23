@@ -5,6 +5,10 @@
         $stat = "";
     }
 
+    // ログアウト時
+    if($stat=="logout"){
+        session_destroy();
+    }
 ?>
 
 
@@ -38,6 +42,7 @@
 
 
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
     <script src="./js/main.js"></script>
     <script>
         $('body').fadeIn(1000)
@@ -47,15 +52,22 @@
         if($(text).text()=="failure"){
             $(text).text("* Wrong User ID and/or Password !")
             $(text).toggle();
-        }else if($(text).text()=="registered"){
+        }else if($(text).text()=="registration_done"){
             $(text).text("* Account is successfully created !")
             $(text).css("color","rgb(0, 110, 255)")
             $(text).css("border"," 1px solid rgb(0, 110, 255)")
             $(text).toggle();
-
+        }else if($(text).text()=="registration_failure_user_exist"){
+            $(text).text("* Entered Account is already used !")
+            $(text).toggle();
+        }else if($(text).text()=="logout"){
+            $(text).text("* Logout is successfully done !")
+            $(text).css("color","rgb(0, 110, 255)")
+            $(text).css("border"," 1px solid rgb(0, 110, 255)")
+            $(text).toggle();
+        
+            
         }
-
-
 
 
     </script>
@@ -82,6 +94,9 @@
             }
         }
     </script>
-
+    <script>
+        $('#loginfail').animate({opacity:0},{duration:2500, easing:'easeInQuint'})
+        $('.msg_validation').animate({opacity:0},{duration:2500, easing:'easeInQuint'})
+    </script>
 </body>
 </html>

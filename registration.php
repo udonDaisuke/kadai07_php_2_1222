@@ -10,7 +10,7 @@
     <title>Document</title>
 </head>
 <body>
-    <form class="login-form r" action="./index.php?login_status=registered" method="post" onsubmit="return inputValidation()">
+    <form class="login-form r" action="./result_registration.php" method="post" onsubmit="return inputValidation()">
 
         <p class="login-text">Create new Account</p>
         <span id = "msg_validation_id" class="msg_validation"></span>
@@ -56,6 +56,10 @@
 
 
         }
+    </script>
+    <script>
+        $('#loginfail').animate({opacity:0},{duration:2500, easing:'easeInQuint'})
+        $('.msg_validation').animate({opacity:0},{duration:2500, easing:'easeInQuint'})
     </script>
 
 </body>

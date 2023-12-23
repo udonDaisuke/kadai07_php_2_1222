@@ -1,3 +1,6 @@
+body{
+    display: none;
+}
 fieldset {
     display: flex;
     flex-direction: column;

@@ -46,6 +46,7 @@ function sqlTry($stmt){
         return false;
     } else {
         $result = $stmt->fetch();
+        if($result == ""){return false;}
         return $result;
     }
 }

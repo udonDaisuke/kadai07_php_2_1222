@@ -11,12 +11,15 @@ session_start();
     $stmt = $pdo->prepare("
         SELECT * FROM user WHERE user_id = :user_id;
     ");
+
+
     // bind
     $stmt->bindValue(':user_id',$user_id,PDO::PARAM_STR);
     // 実行
     $member = sqlTry($stmt);
-
+    echo "tet".boolval($member)."tet";
     //指定したハッシュがパスワードにマッチしているかチェック
+    // boolval($member)==true  -> ユーザーが存在
     if (boolval($member)){
         if (password_verify($user_pass, $member['pass'])) {
             //DBのユーザー情報をセッションに保存
@@ -26,11 +29,12 @@ session_start();
             redirect("./userbm.php?user=".$member['nickname']);
             // $link = '<a href="index.php">ホーム</a>';
         } else {
-            echo"wwww";
             $_SESSION['login_status'] = false;
             redirect("./index.php?login_status=failure");
-
-            // $link = '<a href="login.php">戻る</a>';
         }
+    }else{
+        $_SESSION['login_status'] = false;
+        redirect("./index.php?login_status=failure");
+
     }
 ?>

@@ -10,12 +10,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel="stylesheet" href="./css/style.css"> -->
+    <link rel="stylesheet" href="./css/style_prev.css">
     <title>Document</title>
 </head>
 <body>
     <div >
-        <form action="./logout.php" method="post">
+        <form action="./index.php?login_status=logout" method="post">
             <button class="btn" type="submit">ログアウト</button>
         </form>
         <div class="bm-submit">
@@ -50,4 +50,12 @@
 
 
 </body>
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+
+<script>
+    $('body').fadeIn(1000)
+</script>
+
+
 </html>

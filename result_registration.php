@@ -41,3 +41,18 @@ session_start();
 
 
 ?>
+
+<div class="external-article-widget">
+<a href="https://v97ug.github.io/prog-school-cooking-site/" rel="noopener noreferrer nofollow" target="_blank">
+<strong class="external-article-widget-title">
+ホームページのコーディング ポートフォリオ
+</strong>
+<em class="external-article-widget-description">
+ホームページ(2カラム)のコーディングを実装しました。下層ページは、お問い合わせページ、お菓子のページ、渋谷教室のページを
+</em>
+<em class="external-article-widget-url">
+v97ug.github.io
+</em>
+</a><a class="external-article-widget-image" href="https://v97ug.github.io/prog-school-cooking-site/" rel="noopener noreferrer nofollow" style="background-image: url('https://assets.st-note.com/production/uploads/ext/bb19e66993d4984f2f8b3029f63ae4c0d9204e05d8ca224a080d363e84af.png?x-type=ogp');" target="_blank"></a>
+
+</div>

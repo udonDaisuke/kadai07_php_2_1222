@@ -1,6 +1,13 @@
 <?php
+    require_once("./funcs_v1.php");
+    var_dump($_SESSION);
+
     session_start();
+    $user_id =  $_SESSION['nickname'];
+
     $user_name =  $_SESSION['nickname'];
+    echo $user_name;
+    loginCheck("redirect","./index.php","access_denied");
     // require_once("./bm.php");
     // $bm_all = getBm();
 ?>
@@ -15,7 +22,7 @@
 </head>
 <body>
     <div >
-        <form action="./index.php?login_status=logout" method="post">
+        <form action="./logout.php" method="post">
             <button class="btn" type="submit">ログアウト</button>
         </form>
         <div class="bm-submit">
@@ -46,6 +53,7 @@
         <div class="bm-all">
             <iframe id="iframe-bm" name="iframe-bm" width="700" height="500"></iframe>
         </div>
+        
 
 
 

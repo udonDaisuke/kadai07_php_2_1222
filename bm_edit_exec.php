@@ -1,0 +1,51 @@
+<?php
+session_start();
+require_once("./funcs_v1.php");
+require_once("./dsSqlSimple.php");
+
+$id = $_GET['item_id'];
+$result = $_POST;
+
+
+$action = $_GET['action'];
+$img_name = $_FILES['img_url']['name'];
+$img_name_org = $_POST['img_url_org'];
+// 画像を保存 
+if($img_name==""){
+
+    $img_path = $img_name_org;
+}else{
+    $img_path='./img/bm_img/'.$img_name;
+}
+
+
+move_uploaded_file($_FILES['img_url']['tmp_name'], $img_path);
+// $result情報更新＠img_url
+$result['img_url']=$img_path;
+// 不要なデータを削除
+unset($result['img_url_org']);
+
+var_dump($result);
+$sql = new sqlDB_cls("gs_bm_table_2");
+$sql->set_prop('table','bookmark');   
+
+if($action=='add'){
+    $nickname = $_SESSION["nickname"];
+    $result['user']=$_SESSION["user_id_index"];
+    $result['timestamp']='';
+
+    echo "<br>***".$_SESSION["user_id"]."*****<br>";
+    $results = $sql->set($result);  
+    redirect("./user_main.php?user=".$nickname);    
+}else{
+    $nickname = $_SESSION["nickname"];
+    // データ追加
+    $result['timestamp_update']='';
+    // 更新実行
+    $results = $sql->upd("id",$id,$result);  
+    redirect("./bm_add.php?user=".$nickname);    
+
+}
+
+
+?>

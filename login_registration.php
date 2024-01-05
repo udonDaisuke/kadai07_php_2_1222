@@ -9,8 +9,7 @@ function userSQL($type = "login"){
     //1. POSTデータ取得
     $user_id = $_POST['user_id'];
     $pass = $_POST['pass'];
-    // $nickname = $_POST['nickname'];
-    $nickname = "daisuke";
+    $nickname = $_POST['nickname'];
 
     echo "post: ".$user_id."<br>";
     echo "post: ".$pass."<br>";

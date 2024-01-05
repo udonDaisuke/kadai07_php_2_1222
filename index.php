@@ -7,7 +7,12 @@
 
     // ログアウト時
     if($stat=="logout"){
+        echo"logoutsita";
         session_destroy();
+        var_dump($_SESSION["nickname"]);
+        session_start();
+        var_dump($_SESSION["nickname"]);
+
     }
 ?>
 
@@ -21,6 +26,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/style.css?new">
     
     <title>Document</title>
@@ -65,9 +71,16 @@
             $(text).css("color","rgb(0, 110, 255)")
             $(text).css("border"," 1px solid rgb(0, 110, 255)")
             $(text).toggle();
+        }else if($(text).text()=="access_denied"){
+            $(text).text("!!! Unauthorized user !!!")
+            $(text).css("font-weight","bold")
+
+            $(text).css("border"," 2px solid rgb(255, 1, 1)")
+            $(text).toggle();
         
             
         }
+
 
 
     </script>
@@ -95,8 +108,8 @@
         }
     </script>
     <script>
-        $('#loginfail').animate({opacity:0},{duration:2500, easing:'easeInQuint'})
-        $('.msg_validation').animate({opacity:0},{duration:2500, easing:'easeInQuint'})
+        $('#loginfail').animate({opacity:0},{duration:3000, easing:'easeInQuint'})
+        // $('.msg_validation').animate({opacity:0},{duration:2500, easing:'easeInQuint'})
     </script>
 </body>
 </html>

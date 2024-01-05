@@ -24,9 +24,12 @@ session_start();
         if (password_verify($user_pass, $member['pass'])) {
             //DBのユーザー情報をセッションに保存
             $_SESSION['user_id'] = $member['user_id'];
+            $_SESSION['user_id_index'] = $member['id'];
+
             $_SESSION['nickname'] = $member['nickname'];
             $_SESSION['login_status'] = true;
-            redirect("./userbm.php?user=".$member['nickname']);
+            $_SESSION['chk_ssid']=session_id();
+            redirect("./user_main.php?user=".$member['nickname']);
             // $link = '<a href="index.php">ホーム</a>';
         } else {
             $_SESSION['login_status'] = false;

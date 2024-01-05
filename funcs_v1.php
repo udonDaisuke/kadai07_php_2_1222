@@ -51,3 +51,18 @@ function sqlTry($stmt){
     }
 }
 
+// ログイン済ユーザー認証
+function loginCheck($ret="exit",$file_name="./index.php",$ng_msg="access_denied"){
+    // 1. ログインチェック処理！
+    if(!isset($_SESSION['chk_ssid']) || $_SESSION['chk_ssid'] != session_id()){
+        if ($ret=="return_bool"){return false;}
+        elseif($ret=="exit"){exit('LOGIN ERROR');}
+        elseif($ret=="redirect"){redirect($file_name."?login_status=$ng_msg");}
+        else{exit('LOGIN ERROR');}
+    }else{
+        session_regenerate_id();
+        $_SESSION['chk_ssid']=session_id();
+        return true;
+    }
+}
+

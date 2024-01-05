@@ -1,10 +1,13 @@
 <?php
+error_reporting(0);
 session_start();
 require_once("./funcs_v1.php");
 loginCheck();
 $user_id = $_SESSION["user_id"];
+$user_id_index = $_SESSION['user_id_index'];
 $nickname = $_SESSION["nickname"];
 
+$mode = $_SESSION["filter_mode"]
 ?>
 
 <!DOCTYPE html>
@@ -37,16 +40,22 @@ $nickname = $_SESSION["nickname"];
                     <span>Add record</span>
                 </span>
             </a>
-            <!-- ランダム検索 -->
-            <div class="btn-area" id="search-btn">
-                <img src="./img/travel_explore_FILL0_wght400_GRAD0_opsz24.svg" alt="">
-                <span>PublicBM</span>
-            </div>
+            <!-- パブリックBM -->
+            <a target="iframe_bm_add" href="./bm_add.php?action=filter_public" class="">
+                <span class="btn-area" id = "search-btn">
+                    <img src="./img/travel_explore_FILL0_wght400_GRAD0_opsz24.svg" alt="">
+                    <span>PublicBM</span>
+                </span>
+            </a>
+
             <!-- お気に入り -->
-            <div class="btn-area" id="favorite-btn">
-                <img src="./img/bookmark_added_FILL0_wght400_GRAD0_opsz24.svg" alt="">
-                <span>Favorite</span>
-            </div>
+            <a target="iframe_bm_add" href="./bm_add.php?action=filter_fav" class="">
+                <span class="btn-area" id = "favorite-btn">
+                    <img src="./img/bookmark_added_FILL0_wght400_GRAD0_opsz24.svg" alt="">
+                    <span>Favorite</span>
+                </span>
+            </a>
+
             <!-- ユーザー情報 -->
             <div class="btn-area" id="userinfo-btn">
                 <img src="./img/face_5_FILL0_wght400_GRAD0_opsz24.svg" alt="">
@@ -103,7 +112,7 @@ $nickname = $_SESSION["nickname"];
 
     <main>
         <div>
-            <iframe src="./bm_add.php" style="background-color:white;width:600px;height:1000px;"></iframe>
+            <iframe name="iframe_bm_add" src="./bm_add.php" style="background-color:white;width:600px;height:1000px;"></iframe>
         </div>
     </main>
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>

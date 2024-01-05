@@ -1,12 +1,11 @@
 <?php
+error_reporting(0);
     require_once("./funcs_v1.php");
-    var_dump($_SESSION);
 
     session_start();
     $user_id =  $_SESSION['nickname'];
 
     $user_name =  $_SESSION['nickname'];
-    echo $user_name;
     loginCheck("redirect","./index.php","access_denied");
     // require_once("./bm.php");
     // $bm_all = getBm();

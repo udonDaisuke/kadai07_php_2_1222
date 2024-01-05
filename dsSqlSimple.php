@@ -55,7 +55,8 @@ class sqlDB_cls
     // $target_label：取得するデータのラベル　default="*"
     // $condition_obj：WHERE分に相当する連想配列　[ラベル=>値(=のみ),...]　default=[] 
     // $val_type_obj=: bind時のパラメータ指定　[ラベル=>値,...]　default[] 
-    // 
+    // $where_operator：WHEREの条件が複数ある場合"AND"　"OR"の切り替えが可能(細かいカスタマイズは出来ない)
+
     // <return>
     // 取得した値
     //     public $ORDER_BY ="";
@@ -65,7 +66,7 @@ class sqlDB_cls
     //  $RETURN_ALL=TRUEのとき レコード単位のarrayが返る。
 
     // condition_obj＝["user_id="=>111]のように渡す。値は内部でbindされる。
-    public function get($target_label="*",$condition_obj=[],$val_type_obj=[]){
+    public function get($target_label="*",$condition_obj=[],$val_type_obj=[],$where_operator="AND"){
         $sql_str="SELECT $target_label FROM $this->table WHERE ";
         
         // bind時のタイプ指定のデフォルト値を作成
@@ -87,7 +88,7 @@ class sqlDB_cls
                 if($key==$last_key){
                     $sql_str.=" ";
                 }else{
-                    $sql_str.=",";
+                    $sql_str.=" $where_operator ";
                 }
             }
         }
@@ -168,7 +169,7 @@ class sqlDB_cls
             // $$key = $value;
             $sql_str1.=$key;
 
-            if($key == "timestamp"){
+            if($key == "timestamp" ||$key == "timestamp_update"){
                 $sql_str2.='sysdate()';
             }else{
                 $sql_str2.=':'.$key;
@@ -194,7 +195,7 @@ class sqlDB_cls
                 $val_type=PDO::PARAM_STR;
             }
             // タイムスタンプを除き、bindする
-            if($key !== "timestamp"){
+            if($key !== "timestamp" && $key !== "timestamp_update" ){
                 $stmt ->bindValue(":$key",$value,$val_type);
             }else{continue;}
         }
@@ -277,7 +278,6 @@ class sqlDB_cls
                 $stmt ->bindValue(":$key",$value,$val_type);
             }else{continue;}
             // 検索値のbind ※PARAM_STRとして
-            echo $key_str.$match_value;
             $stmt ->bindValue(":$key_str",$match_value,PDO::PARAM_STR);
 
         }

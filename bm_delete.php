@@ -1,13 +1,12 @@
 <?php
+error_reporting(0);
     require_once("./funcs_v1.php");
     require_once("./dsSqlSimple.php");
     
     $item_id = $_GET["item_id"]; 
-    echo $item_id;
 
 
     if(isset($_POST['yes'])) {
-        echo "登録ボタンが押下されました";
         $sql = new sqlDB_cls("gs_bm_table_2");
         $sql->set_prop('table','bookmark');   
         var_dump($sql);
@@ -32,8 +31,8 @@
     <title>Document</title>
 </head>
 <body>
-    <h1 class="w-full text-center text-lg font-bold">Are you sure to delete this item?</h1>
-    <form class ="flex justify-center gap-10 p-5" action="./bm_delete.php?item_id=<?=$item_id?>" method="post" class="flex">
+    <h1 class="w-full text-center text-lg font-bold pt-6">Are you sure to delete this item?</h1>
+    <form class ="flex justify-center gap-10 p-5" action="./bm_delete.php?item_id=<?=h($item_id)?>" method="post" class="flex">
         <input name="yes" type="submit" class="w-20 h-8 bg-blue-500 text-white font-bold text-lg rounded-md hover:shadow-lg cursor-pointer" value ="YES">
         <input name="no" type="submit" class="w-20 h-8 bg-blue-500 text-white font-bold text-lg rounded-md hover:shadow-lg cursor-pointer" value="NO">
     </form>

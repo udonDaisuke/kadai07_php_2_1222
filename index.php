@@ -1,4 +1,6 @@
 <?php
+error_reporting(0);
+require_once('./funcs_v1.php');
     try{
         $stat = $_GET["login_status"];
     }catch(Exception $e){
@@ -7,11 +9,8 @@
 
     // ログアウト時
     if($stat=="logout"){
-        echo"logoutsita";
         session_destroy();
-        var_dump($_SESSION["nickname"]);
         session_start();
-        var_dump($_SESSION["nickname"]);
 
     }
 ?>
@@ -34,7 +33,7 @@
 <body>
     <form class="login-form" action="result_login.php" method="post" onsubmit="return inputValidation()">
         <p class="login-text">Sign in to xxxxx</p>
-        <span id = "loginfail" ><?=$stat;?></span>
+        <span id = "loginfail" ><?=h($stat);?></span>
         <!-- <span id = "loginfail" ></span> -->
         <span id = "msg_validation_id" class="msg_validation"></span>
         <input class ="user-input" type="text" id="user_id" name = "user_id" placeholder="ID">
@@ -107,6 +106,7 @@
             }
         }
     </script>
+    
     <script>
         $('#loginfail').animate({opacity:0},{duration:3000, easing:'easeInQuint'})
         // $('.msg_validation').animate({opacity:0},{duration:2500, easing:'easeInQuint'})

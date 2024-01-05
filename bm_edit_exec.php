@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 session_start();
 require_once("./funcs_v1.php");
 require_once("./dsSqlSimple.php");
@@ -25,7 +26,12 @@ $result['img_url']=$img_path;
 // 不要なデータを削除
 unset($result['img_url_org']);
 
-var_dump($result);
+// public判定 true or false
+$public = isset($result["public"]);
+$result["public"]=$public; 
+
+
+
 $sql = new sqlDB_cls("gs_bm_table_2");
 $sql->set_prop('table','bookmark');   
 
@@ -33,16 +39,18 @@ if($action=='add'){
     $nickname = $_SESSION["nickname"];
     $result['user']=$_SESSION["user_id_index"];
     $result['timestamp']='';
+    $result['timestamp_update']='';
 
-    echo "<br>***".$_SESSION["user_id"]."*****<br>";
-    $results = $sql->set($result);  
+    $results = $sql->set($result);
+    // iframe外  
     redirect("./user_main.php?user=".$nickname);    
 }else{
     $nickname = $_SESSION["nickname"];
     // データ追加
     $result['timestamp_update']='';
     // 更新実行
-    $results = $sql->upd("id",$id,$result);  
+    $results = $sql->upd("id",$id,$result);
+    // iframe内  
     redirect("./bm_add.php?user=".$nickname);    
 
 }

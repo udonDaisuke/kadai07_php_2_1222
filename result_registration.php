@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 require_once("./funcs_v1.php");
 session_start();
     $user_id = $_POST["user_id"];

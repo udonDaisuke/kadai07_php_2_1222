@@ -1,6 +1,10 @@
 <?php
-session_start();
-$action = $_GET["action"];
+error_reporting(0);
+    session_start();
+    $action = $_GET["action"];
+    $user_id_index = $_SESSION['user_id_index'];
+    $_SESSION["filter_mode"] = "My BM";
+
     require_once("./dsSqlSimple.php");
     $sql = new sqlDB_cls("gs_bm_table_2");
     $sql->set_prop('table','bookmark');
@@ -8,23 +12,59 @@ $action = $_GET["action"];
     $sql->set_prop('RETURN_ALL',TRUE);
     $sql->set_prop('ORDER_BY','timestamp_update DESC');
     if($action=="filter_fav"){
-        $results = $sql->get("*",['favorite'=>TRUE]);
+        // 自分のお気に入り投稿だけ表示
+        $results = $sql->get("*",['user'=>$user_id_index,'favorite'=>TRUE]);
+        $_SESSION["filter_mode"] = "* Your Favorite";
+
     }elseif($action=="filter_public"){
+        // パブリック投稿だけ表示
         $results = $sql->get("*",['public'=>TRUE]); 
+        $_SESSION["action"] = $action;
+        $_SESSION["filter_mode"] = "* Public BM";
+
     }else{
-        $results = $sql->get(); 
+        // 自分の投稿だけ表示
+        $results = $sql->get("*",['user'=>$user_id_index]); 
+        $_SESSION["action"] = $action;
     }
     $sql->set_prop('table','user');
 
+    $filter_mode = $_SESSION["filter_mode"];
+
+    // ユーザー情報取得by id
     function user($id){
         $sql = new sqlDB_cls("gs_bm_table_2");
         $sql->set_prop('table','user');
         $results = $sql->get("*",["id"=>$id]);    
-   
         return $results;
     }
 
-    $view = '<div class="">';
+
+    // filter_mode表示
+    if($action=="filter_fav"){
+        // 自分のお気に入り投稿だけ表示
+        $_SESSION["filter_mode"] = "* Your Favorite";
+        $link_cls = 'class="no-underline font-bold text-lg text-blue-700"';
+        $filter_cls = 'class="inline-block text-lg font-bold text-pink-700 w-full text-center"';
+        $filter_mode = "My Favorite";
+
+    }elseif($action=="filter_public"){
+        // パブリック投稿だけ表示
+        $_SESSION["filter_mode"] = "* Public BM";
+        $link_cls = 'class="no-underline font-bold text-lg text-blue-700"';
+        $filter_cls = 'class="inline-block text-lg font-bold text-green-600 w-full text-center"';
+        $filter_mode = "Public Bookmark";
+
+    }else{
+        // 自分の投稿だけ表示
+        $_SESSION["action"] = $action;
+        $link_cls = 'class="hidden"';
+        $filter_cls = 'class="inline-block text-lg font-bold text-black w-full text-center"';
+        $filter_mode = "MY Bookmark";
+    }
+    $view = "<a href='./bm_add.php' $link_cls>◀ Filter Reset </a><span class='flex h-1 w-3'> </span>
+            <p $filter_cls>―――― $filter_mode ――――</p>";
+    $view .= '<div class="">';
     foreach ($results as $result) {
         $view .= '<div class="relative flex justify-between px-6 border border-t-2">';
 
@@ -84,7 +124,7 @@ echo $view;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>DjangoでTailwindCSSを使用する方法</title>
+    <title></title>
   </head>
 
 <div>

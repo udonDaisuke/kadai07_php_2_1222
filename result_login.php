@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 require_once("./funcs_v1.php");
 session_start();
     $user_id = $_POST["user_id"];
@@ -17,7 +18,6 @@ session_start();
     $stmt->bindValue(':user_id',$user_id,PDO::PARAM_STR);
     // 実行
     $member = sqlTry($stmt);
-    echo "tet".boolval($member)."tet";
     //指定したハッシュがパスワードにマッチしているかチェック
     // boolval($member)==true  -> ユーザーが存在
     if (boolval($member)){

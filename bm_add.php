@@ -87,50 +87,77 @@ error_reporting(0);
             $view .= '<a class="block w-1/5 h-8 bg-orange-200 px-2 rounded-lg cursor-pointer hover:shadow-md border border-orange-500 text-base text-center text-black font-bold pt-1 " href="'.$result["ref_url"].'" target="_blank" rel="noopener noreferrer"> URL</a>';
 
         }
-        $view .='<form class="w-1/5" action="./bm_edit.php?action=edit&item_id='.$result['id'].'" method="post">';
-        $view .='<input class="block w-full h-8 bg-yellow-100 text-2xl text-center px-2 rounded-lg cursor-pointer hover:shadow-md border border-yellow-600 " type="submit" value="&#128395">';
-        $view .='</form>';
-        $view .='<form class="w-1/6" action="./bm_delete.php?item_id='.$result['id'].'" method="post" >';
-        $view .='<input class="flex w-full h-8 bg-gray-300 text-2xl text-center px-2 rounded-lg cursor-pointer hover:shadow-md bg-[url('."'./img/delete_forever.svg'".')] bg-no-repeat bg-center border border-gray-500" type="submit" value="" >';
-        $view .='</form>';
 
-        $view .= '</div>';
-        $view .= '</div>';
-        if($result['favorite']){
-            $view .= '<form method = "post" action="./bm_edit.php?action=fav_remove&item_id='.$result['id'].'"  class="block absolute top-4 right-5">
-            <label class="cursor-pointer" for ="item_'.$result['id'].'">
-                <img class="top-2 right-2" src="./img/Vector.svg" alt="like-true">
-                <input id="item_'.$result['id'].'" type="submit" class ="hidden absolute" value =" " >
-            </label>
-            </form>';
-    
+        // 自分のBMのみ表示
+        if($user_id_index == $result["user"]){
+            $view .='<form class="w-1/5" action="./bm_edit.php?action=edit&item_id='.$result['id'].'" method="post">';
+            $view .='<input class="block w-full h-8 bg-yellow-100 text-2xl text-center px-2 rounded-lg cursor-pointer hover:shadow-md border border-yellow-600 " type="submit" value="&#128395">';
+            $view .='</form>';
+            $view .='<form class="w-1/6" action="./bm_delete.php?item_id='.$result['id'].'" method="post" >';
+            $view .='<input class="flex w-full h-8 bg-gray-300 text-2xl text-center px-2 rounded-lg cursor-pointer hover:shadow-md bg-[url('."'./img/delete_forever.svg'".')] bg-no-repeat bg-center border border-gray-500" type="submit" value="" >';
+            $view .='</form>';
+        // publicのBMでの表示
         }else{
-            $view .= '<form method = "post" action="./bm_edit.php?action=fav_add&item_id='.$result['id'].'"  class="block absolute top-4 right-5 ">
-            <label class="cursor-pointer" for ="item_'.$result['id'].'">
-                <img class=" top-2 right-2" src="./img/favorite_border.svg" alt="like-false">
-                <input id="item_'.$result['id'].'" type="submit" class ="hidden absolute" value =" " >
-            </label>
-            </form>';
-    
+            $view .='<form class="w-1/5  opacity-20" action="" method="post">';
+            $view .='<input class="block w-full h-8  bg-slate-200 px-2 rounded-lg border border-slate-500 text-base text-center text-slate-400 " type="submit" value="&#128395">';
+            $view .='</form>';
+            $view .='<form class="w-1/6 opacity-20" action="" method="post" >';
+            $view .='<input class="flex w-full h-8  bg-slate-200 px-2 rounded-lg border border-slate-500 text-base text-center text-slate-100 bg-[url('."'./img/delete_forever.svg'".')] bg-no-repeat bg-center " type="button" value="" >';
+            $view .='</form>';
+
         }
 
+        $view .= '</div>';
+        $view .= '</div>';
+        // 自分のBMのみ表示
+        if($user_id_index == $result["user"]){
+            if($result['favorite']){
+                $view .= '<form method = "post" action="./bm_edit.php?action=fav_remove&item_id='.$result['id'].'"  class="block absolute top-4 right-5">
+                <label class="cursor-pointer" for ="item_'.$result['id'].'">
+                    <img class="top-2 right-2" src="./img/Vector.svg" alt="like-true">
+                    <input id="item_'.$result['id'].'" type="submit" class ="hidden absolute" value =" " >
+                </label>
+                </form>';
+        
+            }else{
+                $view .= '<form method = "post" action="./bm_edit.php?action=fav_add&item_id='.$result['id'].'"  class="block absolute top-4 right-5 ">
+                <label class="cursor-pointer" for ="item_'.$result['id'].'">
+                    <img class=" top-2 right-2" src="./img/favorite_border.svg" alt="like-false">
+                    <input id="item_'.$result['id'].'" type="submit" class ="hidden absolute" value =" " >
+                </label>
+                </form>';        
+            }
+        // publicのBMでの表示
+        }else{
+            $view .= '<form method = "post" action=""  class="block absolute top-4 right-5 ">
+            <label class="" for ="item_'.$result['id'].'">
+                <img class=" top-2 right-2 opacity-20" src="./img/favorite_border.svg" alt="like-false">
+            </label>
+            </form>';        
+        }
         $view .= '</div>';
     }
     $view .= '</div>';
 
-echo $view;
+// echo $view;
 ?>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
-    <title></title>
-  </head>
-
-<div>
-    
-
-</div>
-<script>
-
-</script>
+    <title>Document</title>
+</head>
+<body>
+    <main class="hidden">
+        <?=($view)?>
+    </main>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script>
+        $('main').fadeIn(300)
+    </script>
+</body>
+</html>

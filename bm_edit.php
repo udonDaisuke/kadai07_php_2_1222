@@ -54,7 +54,7 @@ elseif($action=="fav_remove"){
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Document</title>
 </head>
-<body>
+<body class="hidden">
     <h1 class="transition-all flex absolute bg-blue-500 w-20 rounded-lg top-4 left-5 text-xl font-bold text-white text-center pr-1 hover:shadow-md" ><a class="w-full " href="<?= h($redirect_to) ?>" class="">◂ Back</a></h>
     <h1 class="w-full text-xl font-bold text-center pt-4">Edit item</h1>
     <div class="flex justify-center w-full">
@@ -85,6 +85,11 @@ elseif($action=="fav_remove"){
         
     </div>
     <script src="./js/img.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script>
+        $('body').fadeIn(150)
+    </script>
 </body>
 </html>
 

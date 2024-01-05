@@ -89,6 +89,8 @@ body{
     color: rgb(0, 130, 255);
 }
 
-
+.btn-area>span{
+    text-decoration: none;
+}
 
 

@@ -36,6 +36,8 @@ header{
     cursor: pointer;
     /* padding-right: 20px; */
 }
+
+
 .btn-area:hover{
     border-radius: 5px;
     box-shadow: inset 0 0 12px var(--btn-hover-shadow-color),
@@ -62,6 +64,9 @@ header{
     padding-right: 10px;
     padding-left: 10px;
     top: 0;
+}
+.header-area *{
+    text-decoration: none;
 }
 
 .nav-area{
